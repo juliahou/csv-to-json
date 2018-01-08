@@ -11,16 +11,17 @@ const convert = (file) => {
     var categories = lines[0].split(',')
 
     // parse csv string and create json string
-    for (i = 0; i < lines.length-1; i++) {
+    for (i = 1; i < lines.length; i++) {
       if (i != 0) {
         json += ',\n'
       }
       json += '{\n'
+      var data = lines[i].split(',')
       for (j = 0; j < categories.length; j++) {
         if (j != 0) {
           json += ',\n'
         }
-        json += '"' + categories[j] + '"' + ': ' + '"' + lines[i][j] + '"'
+        json += '"' + categories[j] + '"' + ': ' + '"' + data[j] + '"'
       }
       json += '}'
     }
