@@ -2,8 +2,8 @@ const fs = require('fs')
 const path = require('path')
 
 const convert = (file) => {
-  if (!file) return console.log("No file specified\n")
-  var buff = fs.readFileSync(file)
+  if (!file) return console.log("No file specified")
+  var csv = fs.readFileSync(file, 'utf8')
 
   const parse = (str, write) => {
     var json = '[\n'
@@ -20,14 +20,14 @@ const convert = (file) => {
         if (j != 0) {
           json += ',\n'
         }
-        json += categories[j] + ': ' + lines[i][j]
+        json += '"' + categories[j] + '"' + ': ' + '"' + lines[i][j] + '"'
       }
       json += '}'
     }
     write(json)
   }
 
-  parse(buff, (json) => {
+  parse(csv, (json) => {
     fs.writeFileSync(path.join(__dirname, 'customer-data.json'), json)
   })
 }
