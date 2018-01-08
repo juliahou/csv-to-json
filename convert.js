@@ -4,10 +4,13 @@ const path = require('path')
 const convert = (file) => {
   if (!file) return console.log("No file specified\n")
   var buff = fs.readFileSync(file)
+
   const parse = (str, write) => {
     var json = '[\n'
     var lines = str.split('\n')
     var categories = lines[0].split(',')
+
+    // parse csv string and create json string
     for (i = 0; i < lines.length-1; i++) {
       if (i != 0) {
         json += ',\n'
@@ -25,6 +28,8 @@ const convert = (file) => {
   }
 
   parse(buff, (json) => {
-    fs.writeFileSync(path.join(__dirname,
+    fs.writeFileSync(path.join(__dirname, 'customer-data.json'), json)
+  })
+}
 
-var buff = fs.readFileSync(process.argv[2])
+convert(process.argv[2])
